@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 268" width="400" height="268" preserveAspectRatio="xMidYMid slice">
+<rect width="400" height="268" fill="#DCEAF7"></rect>
+<circle cx="340" cy="54" r="24" fill="#FFC53D"></circle>
+<rect x="90" y="30" width="220" height="238" fill="#A9C8E6"></rect>
+<path d="M126 30 V268 M163 30 V268 M200 30 V268 M237 30 V268 M274 30 V268 M90 66 H310 M90 102 H310 M90 138 H310 M90 174 H310 M90 210 H310" stroke="#E8F1FA" stroke-width="3"></path>
+<polygon points="90,30 170,30 90,140" fill="#FFFFFF" fill-opacity="0.28"></polygon>
+<rect x="90" y="22" width="220" height="10" fill="#2B3B4E"></rect>
+<rect y="254" width="400" height="14" fill="#C9D3DE"></rect>
+</svg>

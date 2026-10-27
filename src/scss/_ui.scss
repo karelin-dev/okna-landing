@@ -1,0 +1,625 @@
+@use 'mixins' as *;
+
+// Кнопки
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 22px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1.5px solid transparent;
+  border-radius: 14px;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
+
+  &--accent {
+    color: var(--c-ink);
+    background: var(--c-accent);
+
+    @include hover {
+      background: var(--c-accent-hover);
+    }
+  }
+
+  &--outline {
+    color: var(--c-ink);
+    border-color: #d5dde6;
+
+    @include hover {
+      border-color: var(--c-brand);
+    }
+  }
+
+  &--ghost {
+    color: var(--c-brand);
+    background: var(--c-brand-light);
+
+    @include hover {
+      background: #dfe8f1;
+    }
+  }
+
+  &--glass {
+    color: #fff;
+    border-color: rgb(255 255 255 / 0.25);
+
+    @include hover {
+      border-color: #fff;
+    }
+  }
+
+  &--sm {
+    min-height: 40px;
+    padding: 0 16px;
+    font-size: 14px;
+  }
+
+  &--lg {
+    min-height: 56px;
+    padding: 0 28px;
+    font-size: 16px;
+    border-radius: 16px;
+  }
+
+  &--xl {
+    min-height: 60px;
+    padding: 0 30px;
+    font-size: 17px;
+    border-radius: 16px;
+  }
+
+  &--block {
+    width: 100%;
+  }
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--c-brand);
+  background: none;
+  border: 0;
+  text-decoration: none;
+
+  .icon {
+    transition: transform 0.2s;
+  }
+
+  @include hover {
+    .icon {
+      transform: translateX(4px);
+    }
+  }
+}
+
+// Поля
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &__label {
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  &__error {
+    font-size: 13px;
+    color: var(--c-error);
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  &__select {
+    appearance: none;
+    padding-right: 44px;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b6675' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center / 18px;
+  }
+}
+
+.input {
+  width: 100%;
+  min-height: 56px;
+  padding: 0 18px;
+  font-size: 16px;
+  background: #fff;
+  border: 1.5px solid var(--c-input);
+  border-radius: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &::placeholder {
+    color: #97a1ad;
+  }
+
+  &:focus {
+    border-color: var(--c-brand);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--c-focus);
+  }
+
+  &.is-invalid {
+    border-color: var(--c-error);
+  }
+}
+
+// Чекбокс согласия
+.checkbox {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--c-muted);
+  cursor: pointer;
+
+  &__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  &__box {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    background: #fff;
+    border: 1.5px solid var(--c-input);
+    border-radius: 6px;
+    transition: background-color 0.2s, border-color 0.2s;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 2px;
+      width: 5px;
+      height: 10px;
+      border: solid #fff;
+      border-width: 0 2.5px 2.5px 0;
+      transform: rotate(45deg) scale(0);
+      transition: transform 0.15s;
+    }
+  }
+
+  &__input:checked + &__box {
+    background: var(--c-brand);
+    border-color: var(--c-brand);
+
+    &::after {
+      transform: rotate(45deg) scale(1);
+    }
+  }
+
+  &__input:focus-visible + &__box {
+    @include focus-ring;
+  }
+
+  &.is-invalid &__box {
+    border-color: var(--c-error);
+  }
+}
+
+// Чипы-чекбоксы (комплектация)
+.chip {
+  position: relative;
+  cursor: pointer;
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+  }
+
+  &__body {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0 18px 0 14px;
+    font-size: 15px;
+    font-weight: 600;
+    background: #fff;
+    border-radius: 999px;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  &__box {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--c-input);
+    border-radius: 5px;
+    background: #fff;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 1px;
+      width: 5px;
+      height: 10px;
+      border: solid var(--c-ink);
+      border-width: 0 2.5px 2.5px 0;
+      transform: rotate(45deg) scale(0);
+      transition: transform 0.15s;
+    }
+  }
+
+  &__price {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--c-subtle);
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  &__input:checked + &__body {
+    color: #fff;
+    background: var(--c-brand);
+
+    .chip__box {
+      background: var(--c-accent);
+      border-color: var(--c-accent);
+
+      &::after {
+        transform: rotate(45deg) scale(1);
+      }
+    }
+
+    .chip__price {
+      color: #c3d1df;
+    }
+  }
+
+  &__input:focus-visible + &__body {
+    @include focus-ring;
+  }
+
+  &__input:disabled + &__body {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+}
+
+// Переключатель-сегменты
+.segmented {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: #fff;
+  border-radius: var(--r);
+
+  &__item {
+    position: relative;
+    flex: 1 1 0;
+    min-width: 0;
+    cursor: pointer;
+  }
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 6px;
+    text-align: center;
+    border-radius: var(--r-sm);
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  &__title {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  &__sub {
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--c-muted);
+  }
+
+  &__item:hover &__body {
+    background: var(--c-brand-light);
+  }
+
+  &__input:checked + &__body {
+    color: #fff;
+    background: var(--c-brand);
+
+    .segmented__sub {
+      color: #c3d1df;
+    }
+  }
+
+  &__input:focus-visible + &__body {
+    @include focus-ring;
+  }
+}
+
+// Таблетки (время звонка)
+.pill {
+  position: relative;
+  cursor: pointer;
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+  }
+
+  &__body {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1.5px solid var(--c-input);
+    border-radius: 999px;
+    transition: border-color 0.2s, background-color 0.2s;
+  }
+
+  &__input:checked + &__body {
+    background: var(--c-brand-light);
+    border-color: var(--c-brand);
+  }
+
+  &__input:focus-visible + &__body {
+    @include focus-ring;
+  }
+}
+
+// Варианты ответа в квизе
+.option {
+  position: relative;
+  cursor: pointer;
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+  }
+
+  &__body {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 60px;
+    height: 100%;
+    padding: 12px 18px;
+    font-size: 16px;
+    font-weight: 600;
+    border: 2px solid var(--c-line);
+    border-radius: var(--r);
+    transition: border-color 0.2s, background-color 0.2s;
+
+    &::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      border: 2px solid var(--c-input);
+      border-radius: 50%;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+  }
+
+  @include hover {
+    .option__body {
+      border-color: #b9c6d4;
+    }
+  }
+
+  &__input:checked + &__body {
+    background: #f4f7fb;
+    border-color: var(--c-brand);
+
+    &::before {
+      border-color: var(--c-brand);
+      box-shadow: inset 0 0 0 5px var(--c-brand);
+    }
+  }
+
+  &__input:focus-visible + &__body {
+    @include focus-ring;
+  }
+}
+
+// Счётчик − 1 +
+.stepper {
+  display: flex;
+  align-items: stretch;
+  width: fit-content;
+  height: 52px;
+  overflow: hidden;
+  background: #fff;
+  border: 1.5px solid var(--c-input);
+  border-radius: 14px;
+
+  &__btn {
+    width: 52px;
+    padding: 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--c-brand);
+    background: transparent;
+    border: 0;
+
+    @include hover {
+      background: var(--c-brand-light);
+    }
+  }
+
+  &__input {
+    width: 48px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 700;
+    border: 0;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: inset 0 0 0 3px var(--c-focus);
+    }
+  }
+}
+
+// Метки и аватары
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  &__item {
+    padding: 4px 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #3e4b5c;
+    background: #fff;
+    border-radius: 8px;
+  }
+}
+
+.avatars {
+  display: flex;
+
+  &__item {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--c-ink);
+    border: 3px solid #fff;
+    border-radius: 50%;
+
+    & + & {
+      margin-left: -12px;
+    }
+
+    &--peach {
+      background: #f4d9c6;
+    }
+
+    &--sky {
+      background: #cfe3f6;
+    }
+
+    &--mint {
+      background: #d7ebd9;
+    }
+  }
+}
+
+.stars {
+  display: flex;
+  gap: 4px;
+  color: var(--c-accent);
+
+  .icon {
+    fill: currentColor;
+    stroke: none;
+  }
+
+  &--4 .icon:last-child {
+    color: #d5dde6;
+  }
+}
+
+// Шкала теплоизоляции
+.meter {
+  display: flex;
+  gap: 4px;
+
+  span {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: rgb(255 255 255 / 0.15);
+  }
+
+  @for $i from 1 through 5 {
+    &[style*='--level: #{$i}'] span:nth-child(-n + #{$i}) {
+      background: var(--c-accent);
+    }
+  }
+}
+
+// Успешная отправка формы
+.form-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px 8px;
+  text-align: center;
+
+  &__icon {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 8px;
+    color: var(--c-ink);
+    background: var(--c-accent);
+    border-radius: 50%;
+
+    .icon {
+      width: 30px;
+      height: 30px;
+      stroke-width: 2.6;
+    }
+  }
+
+  &__title {
+    font-size: 22px;
+    font-weight: 800;
+  }
+
+  &__text {
+    max-width: 360px;
+    color: var(--c-muted);
+  }
+}
+
+.lead-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
